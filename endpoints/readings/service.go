@@ -8,6 +8,8 @@ import (
 type Service interface {
 	StoreReadings(smartMeterId string, reading []domain.ElectricityReading)
 	GetReadings(smartMeterId string) []domain.ElectricityReading
+	GetAllReadings() []domain.ElectricityReading
+	GetLastWeekReadings() float64
 }
 
 type service struct {
@@ -28,4 +30,12 @@ func (s *service) StoreReadings(smartMeterId string, reading []domain.Electricit
 
 func (s *service) GetReadings(smartMeterId string) []domain.ElectricityReading {
 	return s.meterReadings.GetReadings(smartMeterId)
+}
+
+func (s *service) GetAllReadings() []domain.ElectricityReading {
+	return s.meterReadings.GetAllReadings()
+}
+
+func (s *service) GetLastWeekReadings() float64 {
+	return s.meterReadings.GetLastWeekReadings()
 }

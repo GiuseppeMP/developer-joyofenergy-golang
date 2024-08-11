@@ -2,7 +2,6 @@ package router
 
 import (
 	"fmt"
-	"github.com/julienschmidt/httprouter"
 	"joi-energy-golang/api"
 	"joi-energy-golang/endpoints/priceplans"
 	"joi-energy-golang/endpoints/readings"
@@ -11,6 +10,8 @@ import (
 	"net/http"
 	"os"
 	"strings"
+
+	"github.com/julienschmidt/httprouter"
 )
 
 func NewServer() *http.Server {
@@ -36,6 +37,8 @@ func addRoutes(r *httprouter.Router) {
 	pricePlanHandler := priceplans.NewHandler(priceplans.NewService(&pricePlans, &accounts))
 
 	r.POST("/readings/store", readingsHandler.StoreReadings)
+	r.GET("/readings", readingsHandler.GetAllReadings)
+	r.GET("/readings/last-week", readingsHandler.GetLastWeekReadings)
 	r.GET("/readings/read/:smartMeterId", readingsHandler.GetReadings)
 
 	r.GET("/price-plans/compare-all/:smartMeterId", pricePlanHandler.CompareAll)

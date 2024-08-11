@@ -53,3 +53,11 @@ func (h *Handler) GetReadings(w http.ResponseWriter, r *http.Request, urlParams 
 	}
 	api.SuccessJson(w, r, result)
 }
+func (h *Handler) GetAllReadings(w http.ResponseWriter, r *http.Request, urlParams httprouter.Params) {
+	readings := h.service.GetAllReadings()
+	api.SuccessJson(w, r, readings)
+}
+func (h *Handler) GetLastWeekReadings(w http.ResponseWriter, r *http.Request, urlParams httprouter.Params) {
+	readings := h.service.GetLastWeekReadings()
+	api.SuccessJson(w, r, readings)
+}
